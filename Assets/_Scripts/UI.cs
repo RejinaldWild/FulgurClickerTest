@@ -14,14 +14,14 @@ using Unity.VisualScripting;
 public class UI : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI _goldScore;
-    [SerializeField]
-    private TextMeshProUGUI _silverScore;
+    private List<TextMeshProUGUI> _resources;
     [SerializeField]
     private TextMeshProUGUI _sumScore;
     
     private int _goldNumScore;
     private int _silverNumScore;
+
+    private ParameterController _parameterController;
 
     public static event Action onChangeScore;
 
@@ -29,50 +29,31 @@ public class UI : MonoBehaviour
     {
         //Initializing start score
         _goldNumScore = 0;
-        _goldScore.text = "Gold:\n " + _goldNumScore;
+        //_goldScores.text = "Gold:\n " + _goldNumScore;
         _silverNumScore = 0;
-        _silverScore.text = "Silver:\n " + _silverNumScore;
+       // _silverScores.text = "Silver:\n " + _silverNumScore;
         _sumScore.text = "Score:\n" + (_goldNumScore + _silverNumScore).ToString();
     }
+
+    public void Init(ParameterController controller)
+    {
+        _parameterController = controller;
+        _parameterController.Init();
+    }
+
+    // Lower is trash
+
 
     private void OnEnable()
     {
         // subscribing on events
-        ClickGoldButton.onClickButton += ShowActualGold;
-        ClickSilverButton.onClickButton += ShowActualSilver;
         onChangeScore += ChangeSumScore;
     }
 
     private void OnDisable()
     {
         // unsubscribing on events
-        ClickGoldButton.onClickButton -= ShowActualGold;
-        ClickSilverButton.onClickButton -= ShowActualSilver;
         onChangeScore -= ChangeSumScore;
-    }
-
-    /// <summary>
-    /// Shows actual gold on UI
-    /// </summary>
-    void ShowActualGold()
-    {
-        string text = _goldScore.text;
-        _goldNumScore++;
-        text = "Gold:\n " + _goldNumScore;
-        _goldScore.text = text;
-        onChangeScore?.Invoke();
-    }
-
-    /// <summary>
-    /// Shows actual silver on UI
-    /// </summary>
-    void ShowActualSilver()
-    {
-        string text = _silverScore.text;
-        _silverNumScore++;
-        text = "Silver:\n " + _silverNumScore;
-        _silverScore.text = text;
-        onChangeScore?.Invoke();
     }
 
     /// <summary>
