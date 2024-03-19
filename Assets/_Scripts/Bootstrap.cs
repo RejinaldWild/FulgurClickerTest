@@ -10,15 +10,15 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField]
+    private UI _uiInstance;
+    [SerializeField]
     private List<TextMeshProUGUI> _resources;
     [SerializeField]
     private TextMeshProUGUI _sumScore;
-    private UI _uiInstance;
     private ParameterController _parameterController;
 
     void Awake()
     {
-        _uiInstance = GetComponent<UI>();
         _parameterController = new ParameterController(_resources, _sumScore);
         _uiInstance.Init(_parameterController);
     }

@@ -32,28 +32,26 @@ public class ParameterController
 
     public void ShowActualResource()
     {
+        int count = _CountScore++;
+        string text = "";
         foreach (TextMeshProUGUI res in _resources)
         {
             if (res.tag == "Resource")
             {
                 //EventManager.OnParameterScored();
-                int count = _CountScore++;
                 string tempText = res.text + count.ToString();
                 res.text = tempText;
-                Debug.Log("Нажата кнопка была " + _CountScore + " и " + res.text);
+                text = res.text;
             }
         }
+
+        Debug.Log("Нажата кнопка была " + _CountScore + " и " + text);
     }
 
     public void ShowAllResources()
     {
-        int counter = 0;
-        foreach (TextMeshProUGUI res in _resources)
-        {
-            //counter += Int32.Parse(res.text);
-        }
-
-        _sumScore.text = counter.ToString();
-        Debug.Log("Всё тут!");
+        int count = _CountScore;
+        _sumScore.text = "Score: " + count.ToString();
+        Debug.Log("Всё тут! Score: " + _sumScore.text);
     }
 }
