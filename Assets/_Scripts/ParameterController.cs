@@ -1,57 +1,54 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine;
+using UnityEngine.UI;
 
 public class ParameterController
 {
-    private int _CountScore = 0;
-    private int _silverCountScore = 0;
     private List<TextMeshProUGUI> _resources;
     private TextMeshProUGUI _sumScore;
+    private List<ScoreDisplay> _scores;
+    private ButtonController _buttonController;
 
-    public ParameterController(List<TextMeshProUGUI> resources, TextMeshProUGUI sumScore)
+    public ParameterController(List<TextMeshProUGUI> resources, TextMeshProUGUI sumScore, 
+                                List<ScoreDisplay> score, ButtonController clickButton)
     {
         _resources = resources;
         _sumScore = sumScore;
+        _scores = score;
+        _buttonController = clickButton;
     }
 
     public void Init()
     {
-        ClickButton.onClickButton += ShowActualResource;
-        ClickButton.onClickButton += ShowAllResources;
+        _buttonController.ButtonClicked += ShowActualResource;
+        _buttonController.ButtonClicked += ShowAllResources;
     }
 
     public void Terminate()
     {
-        ClickButton.onClickButton -= ShowActualResource;
-        ClickButton.onClickButton -= ShowAllResources;
+        _buttonController.ButtonClicked -= ShowActualResource;
+        _buttonController.ButtonClicked -= ShowAllResources;
     }
 
-    public void ShowActualResource()
+    private void ShowActualResource(Button button)
     {
-        int count = _CountScore++;
-        string text = "";
+        int startIndex = 0;
+        string[] tempButtonString = button.name.Split();
         foreach (TextMeshProUGUI res in _resources)
         {
-            if (res.tag == "Resource")
+            string[] tempTMPStr = res.name.Split();
+            if (tempButtonString[startIndex] == tempTMPStr[startIndex])
             {
-                //EventManager.OnParameterScored();
-                string tempText = res.text + count.ToString();
-                res.text = tempText;
-                text = res.text;
-            }
+                int counter = Int32.Parse(res.text)+1;
+                res.text = counter.ToString();
+            }            
         }
-
-        Debug.Log("Нажата кнопка была " + _CountScore + " и " + text);
     }
 
-    public void ShowAllResources()
+    private void ShowAllResources(Button button)
     {
-        int count = _CountScore;
-        _sumScore.text = "Score: " + count.ToString();
-        Debug.Log("Всё тут! Score: " + _sumScore.text);
+        int counter = Int32.Parse(_sumScore.text) + 1;
+        _sumScore.text = counter.ToString();
     }
 }

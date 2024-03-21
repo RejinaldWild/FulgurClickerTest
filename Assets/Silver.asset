@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e39efe8dd34664491482a23883c0f6, type: 3}
+  m_Name: Silver
+  m_EditorClassIdentifier: 
+  _tmp: {fileID: 4699751364232496657, guid: b118a69b1606f584081c3b1e316b9b1f, type: 3}
+  _id: 2
+  _name: Silver
+  _score: 0
